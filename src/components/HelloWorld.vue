@@ -13,6 +13,8 @@ export default {
   },
   methods: {
     click() {
+      console.log(this.$store)
+      this.$store.commit('zenodo/initialize')
       window.location.href = 'https://zenodo.org/oauth/authorize' +
       '?client_id=Z8x5dOr5qaMK41xPNfnHVF7NLxQmxtlJFVuOVtmD' +
       '&scope=deposit%3Awrite+deposit%3Aactions' +

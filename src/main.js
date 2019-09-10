@@ -15,7 +15,7 @@ axios.defaults.timeout = 15000;
 
 Vue.use(BootstrapVue);
 // register shared-ui components
-Vue.use(SharedUI)
+Vue.use(SharedUI)//, {store: store})
 
 new Vue({
   router,

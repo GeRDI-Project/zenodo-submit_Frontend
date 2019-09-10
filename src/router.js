@@ -6,7 +6,7 @@ Vue.use(Router)
 
 export default new Router({
   mode: 'history',
-  base: process.env.BASE_URL,
+  base: '/submit/zenodo/',
   routes: [
     {
       path: '/',
@@ -17,6 +17,21 @@ export default new Router({
       path: '/signedin',
       name: 'signedin',
       component: () => import(/* webpackChunkName: "signedin" */ './views/Signedin.vue')
+    },
+    {
+      path: '/browser',
+      name: 'filebrowser',
+      component: () => import(/* webpackChunkName: "filebrowser" */ './views/FileBrowser.vue')
+    },
+    {
+      path: '/metadata',
+      name: 'metadata',
+      component: () => import(/* webpackChunkName: "metadata" */ './views/MetadataForm.vue')
+    },
+    {
+      path: '/error',
+      name: 'error',
+      component: () => import(/* webpackChunkName: "error" */ './views/Error.vue')
     }
   ]
 })
