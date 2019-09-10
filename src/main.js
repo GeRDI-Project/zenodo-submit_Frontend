@@ -4,7 +4,6 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 
-//const BootstrapVue = () => import(/* webpackChunkName: "bootstrap-vue" */ "bootstrap-vue")
 import SharedUI from "shared-ui";
 import BootstrapVue from 'bootstrap-vue'
 

@@ -3,7 +3,10 @@ module.exports = {
     proxy: {
       "/api": {
         target: "https://www.test.gerdi.org",
-        changeOrigin: true
+        changeOrigin: true,
+        headers: {
+          'Authorization': 'Bearer xxx'
+        }
       }
     }
   }
