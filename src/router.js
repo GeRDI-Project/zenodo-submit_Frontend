@@ -20,7 +20,7 @@ export default new Router({
     },
     {
       path: '/browser',
-      name: 'filebrowser',
+      name: 'browser',
       component: () => import(/* webpackChunkName: "filebrowser" */ './views/FileBrowser.vue')
     },
     {
@@ -29,7 +29,12 @@ export default new Router({
       component: () => import(/* webpackChunkName: "metadata" */ './views/MetadataForm.vue')
     },
     {
-      path: '/error',
+      path: '/progress/:session',
+      name: 'progress',
+      component: () => import(/* webpackChunkName: "progress" */ './views/Progress.vue')
+    },
+    {
+      path: '/error/:errorcode',
       name: 'error',
       component: () => import(/* webpackChunkName: "error" */ './views/Error.vue')
     }

@@ -1,0 +1,101 @@
+<template>
+  <ul class="list-unstyled multi-steps">
+    <li :class="{ 'is-active': step == 0 }">Select Files</li>
+    <li :class="{ 'is-active': step == 1 }">Prefill Metadata</li>
+    <li :class="{ 'is-active': step == 2 }">Log In Into Zenodo</li>
+    <li :class="{ 'is-active': step == 3 }">Copy Files</li>
+  </ul>
+</template>
+
+<script>
+export default {
+  name: 'Stepper',
+  props: {
+    step: Number
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="scss">
+$brand-primary: #083f64;
+$white: #fff;
+$grey-light: #ededed;
+%remain-steps{
+  &:before {
+    content: counter(stepNum);
+    font-family: inherit;
+    font-weight: 700;
+  }
+  &:after{
+    background-color: $grey-light;
+  }
+}
+.multi-steps{
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  margin: 2rem auto 2rem;
+  > li{
+    counter-increment: stepNum;
+    text-align: center;
+    display: table-cell;
+    position: relative;
+    color: $brand-primary;
+
+    &:before{
+      content: '\f00c';
+      content: '\2713;';
+      content: '\10003';
+      content: '\10004';
+      content: '\2713';
+      display: block;
+      margin: 0 auto 4px;
+      background-color: $white;
+      width: 36px;
+      height: 36px;
+      line-height: 32px;
+      text-align: center;
+      font-weight: bold;
+      border:{
+        width: 2px;
+        style: solid;
+        color: $brand-primary;
+        radius: 50%;
+      }
+    }
+    &:after{
+      content: '';
+      height: 2px;
+      width: 100%;
+      background-color: $brand-primary;
+      position: absolute;
+      top: 16px;
+      left: 50%;
+      z-index: -1;
+    }
+    &:last-child{
+      &:after{
+        display: none;
+      }
+    }
+
+    &.is-active{
+      @extend %remain-steps;
+      &:before{
+        background-color: $white;
+        border-color: $brand-primary;
+      }
+
+      ~ li{
+        color: #808080;
+        @extend %remain-steps;
+        &:before{
+          background-color: $grey-light;
+          border-color: $grey-light;
+        }
+      }
+    }
+  }
+}
+</style>

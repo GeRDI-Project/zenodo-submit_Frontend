@@ -9,6 +9,7 @@
 </template>
 
 <style lang="scss">
+/* @import './styles/gerdi.scss'; */
 @import '~shared-ui/scss/gerdi.scss';
 @import '~bootstrap/scss/bootstrap';
 

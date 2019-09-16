@@ -13,7 +13,7 @@ const vuexSession = new VuexPersistence({
 
 export default new Vuex.Store({
   modules: {
-    zenodo: zenodoModule
+    zenodo: zenodoModule,
   },
   plugins: [vuexSession.plugin]
 })

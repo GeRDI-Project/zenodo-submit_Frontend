@@ -15,15 +15,56 @@
  */
 
 const state = {
-  test: false
+  isAuthor: null,
+  isFirstVersion: null,
+  submissionType: null,
+  files: null,
+  name: null,
+  state: null
 }
 
-const getters = {}
+const getters = {
+  getFiles (state) {
+    return state.files
+  },
+  isAuthor (state) {
+    return state.isAuthor
+  },
+  isFirstVersion (state) {
+    return state.isFirstVersion
+  },
+  getSubmissionType (state) {
+    return state.submissionType
+  },
+  getName (state) {
+    return state.name
+  },
+  getState (state) {
+    return state.state
+  }
+}
 
 const mutations = {
   initialize (state) {
-    console.log('asldkj')
     state.test = true
+  },
+  updateFiles(state, value) {
+    state.files = value
+  },
+  updateIsAuthor(state, value) {
+    state.isAuthor = value
+  },
+  updateIsFirstVersion(state, value) {
+    state.isFirstVersion = value
+  },
+  updateSubmissionType(state, value) {
+    state.submissionType = value
+  },
+  updateName(state, value) {
+    state.name = value
+  },
+  updateState(state, value) {
+    state.state = value
   }
 }
 
