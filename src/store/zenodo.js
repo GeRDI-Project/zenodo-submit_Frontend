@@ -20,7 +20,9 @@ const state = {
   submissionType: null,
   files: null,
   name: null,
-  state: null
+  state: null,
+  title: null,
+  description: null
 }
 
 const getters = {
@@ -41,6 +43,12 @@ const getters = {
   },
   getState (state) {
     return state.state
+  },
+  getTitle (state) {
+    return state.title
+  },
+  getDescription (state) {
+    return state.description
   }
 }
 
@@ -65,6 +73,12 @@ const mutations = {
   },
   updateState(state, value) {
     state.state = value
+  },
+  updateTitle(state, value) {
+    state.title = value
+  },
+  updateDescription(state, value) {
+    state.description = value
   }
 }
 

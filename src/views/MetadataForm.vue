@@ -1,9 +1,40 @@
 <template>
   <div>
     <Stepper v-bind:step="1"/>
-    <h2>Prefill Metadata</h2>
-    Some metadata can already be prefilled for you by us. Please check the following suggestions. Additional metadata can be added later on.
+    <h2>Fill Out Metadata</h2>
+    In the following you need to first fill out the metadata required by Zenodo. In Addition to that, we are able to assist you on some additional metadata. Everything you fill out can be changed on the Zenodo webpage later on.
     <div class="mt-4">
+      <h4>Required Metadata</h4>
+        <b-form-group label="What title will this submission have?">
+          <b-form-input
+                id="input-live"
+                v-model="title"
+                aria-describedby="input-live-help input-live-feedback"
+                placeholder="Enter a title"
+                trim
+                required
+              ></b-form-input>
+        </b-form-group>
+        <b-form-group label="Does this submission mainly contain datasets or software?">
+          <b-form-radio-group
+            id="radio-group-1"
+            v-model="submissionType"
+            :options="options"
+            name="radio-options"
+          ></b-form-radio-group>
+        </b-form-group>
+        <b-form-group label="Please fill in a short description:">
+          <b-form-textarea
+            id="textarea"
+            v-model="description"
+            placeholder="Enter a description..."
+            rows="3"
+            max-rows="6"
+          ></b-form-textarea>
+        </b-form-group>
+    </div>
+    <div class="mt-4">
+      <h4>Additional Metadata</h4>
       <b-form-group label="Did you author at least parts of the data contained in this submission?">
         <b-form-radio-group v-model="isAuthor">
           <b-form-radio :value="true">Yes or in collaboration with others</b-form-radio>
@@ -19,14 +50,6 @@
               trim
             ></b-form-input>
       </b-form-group>
-      <b-form-group label="Does this submission mainly contain datasets or software?">
-        <b-form-radio-group
-          id="radio-group-1"
-          v-model="submissionType"
-          :options="options"
-          name="radio-options"
-        ></b-form-radio-group>
-      </b-form-group>
       <b-form-group label="Is this the first time you upload this data? If so, we can prefill the publication date and version number for you.">
         <b-form-radio-group v-model="isFirstVersion">
           <b-form-radio :value="true">Yes, please</b-form-radio>
@@ -34,8 +57,8 @@
         </b-form-radio-group>
       </b-form-group>
     </div>
-    <div>
-      <b-btn :to="'browser'" class="float-left">Back</b-btn><b-btn @click="goToLogin" class="float-right">Next</b-btn><b-btn variant="skip" class="float-right">Skip</b-btn>
+    <div class="mb-3">
+      <b-btn :to="'browser'" class="float-left">Back</b-btn><b-btn @click="goToLogin" class="float-right mb-4">Next</b-btn><b-btn variant="skip" class="float-right">Skip</b-btn>
     </div>
   </div>
 </template>
@@ -93,6 +116,22 @@ export default {
       },
       set(value) {
         this.$store.commit('zenodo/updateName', value)
+      }
+    },
+    title: {
+      get() {
+        return this.$store.getters['zenodo/getTitle']
+      },
+      set(value) {
+        this.$store.commit('zenodo/updateTitle', value)
+      }
+    },
+    description: {
+      get() {
+        return this.$store.getters['zenodo/getDescription']
+      },
+      set(value) {
+        this.$store.commit('zenodo/updateDescription', value)
       }
     }
   },

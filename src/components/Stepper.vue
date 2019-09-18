@@ -1,7 +1,7 @@
 <template>
   <ul class="list-unstyled multi-steps">
     <li :class="{ 'is-active': step == 0 }">Select Files</li>
-    <li :class="{ 'is-active': step == 1 }">Prefill Metadata</li>
+    <li :class="{ 'is-active': step == 1 }">Fill Out Metadata</li>
     <li :class="{ 'is-active': step == 2 }">Log In Into Zenodo</li>
     <li :class="{ 'is-active': step == 3 }">Copy Files</li>
   </ul>

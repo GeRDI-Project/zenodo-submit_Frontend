@@ -23,7 +23,7 @@ if (process.env.NODE_ENV === 'development') {
         return true
       },
       getIdToken: function () {
-        return 'xxx'
+        return ''
       },
       getUser: function() {
         return {

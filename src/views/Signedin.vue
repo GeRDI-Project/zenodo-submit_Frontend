@@ -8,7 +8,7 @@
     </b-list-group>
     <div class="mt-4">
       <!-- <b-btn class="float-left">Back</b-btn> -->
-      <b-btn class="float-right">Submit</b-btn>
+      <b-btn class="float-right" @click="startSubmit">Submit</b-btn>
     </div>
   </div>
 </template>
@@ -16,6 +16,8 @@
 <script>
 import axios from 'axios'
 import Stepper from '@/components/Stepper.vue'
+
+const urlPrefix = '/api/v1/submit/zenodo/'
 
 export default {
   name: 'signedin',
@@ -50,6 +52,43 @@ export default {
         map[keyval[0]] = keyval[1]
       })
       return map
+    },
+    startSubmit() {
+      var token = this.$gerdi.aai.getIdToken()
+      var headers = {
+        headers: {
+          Authorization: 'Bearer ' + token
+        }
+      }
+      var payload = {
+        metadata: {
+          access_token: this.zenodoToken
+        },
+        files: this.files
+      }
+      payload.metadata['title'] = this.$store.getters['zenodo/getTitle']
+      payload.metadata['description'] = this.$store.getters['zenodo/getDescription']
+
+      var type = this.$store.getters['zenodo/getSubmissionType']
+      if (type === 'none') type = 'other'
+      payload.metadata['upload_type'] = type
+
+      if (this.$store.getters['zenodo/isAuthor']) {
+        payload.metadata['creators'] = []
+        payload.metadata['creators'].push({ name: this.$store.getters['zenodo/getName'] })
+      }
+
+      if (this.$store.getters['zenodo/isFirstVersion']) {
+        payload.metadata['version'] = '1.0'
+        var d = new Date()
+        payload.metadata['publication_date'] = d.getFullYear() + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2)
+      }
+      console.log(payload)
+      var url = urlPrefix + 'submit'
+      axios.post(url, payload, headers)
+        .then(function(response) {
+          console.log(response)
+        })
     }
   }
 }
