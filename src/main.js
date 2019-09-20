@@ -12,8 +12,8 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.config.productionTip = false
 
 if (process.env.NODE_ENV === 'development') {
-  Vue.use(SharedUI)//, {store: store})
-  Vue.prototype.$gerdi = {
+  Vue.use(SharedUI)
+  Vue.prototype.$gerdi = { // Dev-mode hack
     aai: {
       enabled: true,
       isChecked: function () {
@@ -22,7 +22,7 @@ if (process.env.NODE_ENV === 'development') {
       isAuthenticated: function () {
         return true
       },
-      getIdToken: function () {
+      getIdToken: function () { // Insert token below
         return ''
       },
       getUser: function() {

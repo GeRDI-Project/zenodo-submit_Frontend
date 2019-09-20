@@ -79,6 +79,15 @@ const mutations = {
   },
   updateDescription(state, value) {
     state.description = value
+  },
+  resetMetadata(state) {
+    state.isAuthor = null,
+    state.isFirstVersion = null,
+    state.submissionType = null,
+    state.name = null,
+    state.state = null,
+    state.title = null,
+    state.description = null
   }
 }
 

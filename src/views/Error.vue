@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{ errCode }}
+    Something went wrong. Code {{ errCode }}
   </div>
 </template>
 

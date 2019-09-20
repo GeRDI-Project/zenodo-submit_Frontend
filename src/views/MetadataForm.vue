@@ -12,6 +12,7 @@
                 aria-describedby="input-live-help input-live-feedback"
                 placeholder="Enter a title"
                 trim
+                :state="(title != null && title.length > 0) ? null : false"
                 required
               ></b-form-input>
         </b-form-group>
@@ -20,6 +21,7 @@
             id="radio-group-1"
             v-model="submissionType"
             :options="options"
+            :state="submissionType != null ? null : false"
             name="radio-options"
           ></b-form-radio-group>
         </b-form-group>
@@ -29,6 +31,7 @@
             v-model="description"
             placeholder="Enter a description..."
             rows="3"
+            :state="(description != null && description.length > 0) ? null : false"
             max-rows="6"
           ></b-form-textarea>
         </b-form-group>
@@ -58,7 +61,7 @@
       </b-form-group>
     </div>
     <div class="mb-3">
-      <b-btn :to="'browser'" class="float-left">Back</b-btn><b-btn @click="goToLogin" class="float-right mb-4">Next</b-btn><b-btn variant="skip" class="float-right">Skip</b-btn>
+      <b-btn :to="'browser'" class="float-left">Back</b-btn><b-btn @click="goToLogin" class="float-right mb-4"  :disable="(description != null && description.length > 0) || (title != null && title.length > 0) || submissionType == null">Next</b-btn>
     </div>
   </div>
 </template>

@@ -4,7 +4,7 @@
     <h1>Only one more step</h1>
     You have been logged in into Zenodo. Just quickly check if the list below contains all files you want to submit. If so, click on Submit to start the process.
     <b-list-group class="mt-4">
-      <b-list-group-item v-for="file in files">{{file}}</b-list-group-item>
+      <b-list-group-item v-for="file in files" :key="file">{{file}}</b-list-group-item>
     </b-list-group>
     <div class="mt-4">
       <!-- <b-btn class="float-left">Back</b-btn> -->
@@ -83,11 +83,14 @@ export default {
         var d = new Date()
         payload.metadata['publication_date'] = d.getFullYear() + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2)
       }
-      console.log(payload)
+      var self = this
       var url = urlPrefix + 'submit'
       axios.post(url, payload, headers)
         .then(function(response) {
-          console.log(response)
+          var zenodoId = response.data
+          self.$store.commit('resetMetadata')
+          self.$store.commit('updateFiles', null)
+          self.$router.push({name: 'progress', params: {session: zenodoId}})
         })
     }
   }

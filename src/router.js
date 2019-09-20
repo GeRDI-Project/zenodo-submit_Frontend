@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+import FileBrowser from './views/FileBrowser.vue'
 
 Vue.use(Router)
 
@@ -10,23 +10,18 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home
-    },
-    {
-      path: '/signedin',
-      name: 'signedin',
-      component: () => import(/* webpackChunkName: "signedin" */ './views/Signedin.vue')
-    },
-    {
-      path: '/browser',
       name: 'browser',
-      component: () => import(/* webpackChunkName: "filebrowser" */ './views/FileBrowser.vue')
+      component: FileBrowser
     },
     {
       path: '/metadata',
       name: 'metadata',
       component: () => import(/* webpackChunkName: "metadata" */ './views/MetadataForm.vue')
+    },
+    {
+      path: '/signedin',
+      name: 'signedin',
+      component: () => import(/* webpackChunkName: "signedin" */ './views/Signedin.vue')
     },
     {
       path: '/progress/:session',
