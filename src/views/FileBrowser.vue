@@ -5,7 +5,7 @@
       <b-spinner label="Spinning"></b-spinner>
     </div>
     <div v-else-if="aaiChecked && !isAuthenticated">
-      <b-alert show variant="warning">You are not logged in. Please log in first.</b-alert>
+      <b-alert show variant="warning">You are not logged in. Please <b-link @click="$gerdi.aai.signInUser()">log in</b-link> first.</b-alert>
     </div>
     <div v-else>
       <h2>Select Files</h2>

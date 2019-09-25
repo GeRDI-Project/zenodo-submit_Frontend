@@ -12,7 +12,7 @@
                 aria-describedby="input-live-help input-live-feedback"
                 placeholder="Enter a title"
                 trim
-                :state="(title != null && title.length > 0) ? null : false"
+                :state="states.title"
                 required
               ></b-form-input>
         </b-form-group>
@@ -21,7 +21,7 @@
             id="radio-group-1"
             v-model="submissionType"
             :options="options"
-            :state="submissionType != null ? null : false"
+            :state="states.type"
             name="radio-options"
           ></b-form-radio-group>
         </b-form-group>
@@ -31,8 +31,8 @@
             v-model="description"
             placeholder="Enter a description..."
             rows="3"
-            :state="(description != null && description.length > 0) ? null : false"
-            max-rows="6"
+            :state="states.description"
+            no-resize
           ></b-form-textarea>
         </b-form-group>
     </div>
@@ -80,7 +80,12 @@ export default {
         { text: 'Yes, mainly datasets', value: 'dataset' },
         { text: 'Yes, mainly software', value: 'software' },
         { text: 'No, something different', value: 'none' }
-      ]
+      ],
+      states: {
+        title: null,
+        type: null,
+        description: null
+      }
     }
   },
   created() {
@@ -140,6 +145,26 @@ export default {
   },
   methods: {
     goToLogin() {
+      if (this.description === null || this.description.length == 0) {
+        this.states.description = false
+      } else {
+        this.states.description = null
+      }
+
+      if (this.title === null || this.title.length == 0) {
+        this.states.title = false
+      } else {
+        this.states.title = null
+      }
+
+      if (this.submissionType === null) {
+        this.states.type = false
+      } else {
+        this.states.type = null
+      }
+
+      if (this.states.title == false || this.states.type == false || this.states.description == false) return
+
       var url = ''
       if (process.env.NODE_ENV === 'development') {
         url = 'http://localhost:8080'

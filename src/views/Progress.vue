@@ -76,6 +76,7 @@ export default {
           self.retries++
           self.load()
         } else {
+          console.log(response)
           self.$router.push({name: 'error', params: {errorcode: 304}})
         }
       })
