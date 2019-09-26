@@ -61,7 +61,7 @@ export default {
       if (this.$gerdi.aai.isAuthenticated()) {
         this.load()
       } else {
-        // TODO not logged in
+        this.$gerdi.aai.signInUser()
       }
       this.unwatch()
     },
@@ -90,7 +90,7 @@ export default {
           self.load()
         } else {
           console.log(response)
-          self.$router.push({name: 'error', params: {errorcode: 304}})
+          self.$router.push({name: 'error', params: {errorcode: 34}})
         }
       })
     }

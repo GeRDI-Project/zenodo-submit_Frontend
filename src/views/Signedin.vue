@@ -69,11 +69,10 @@ export default {
   },
   created() {
       var map = this.convertHashToMap(this.$route.hash)
-      // If undefined, goto Error
+      if (!map['access_token']) this.$router.push({name: 'error', params: {errorcode: 41}})
       this.zenodoToken = map['access_token']
       if (this.$store.getters['zenodo/getState'] != map['state']) {
-        console.error('State does not equal to generated value!')
-        // Error
+        this.$router.push({name: 'error', params: {errorcode: 40}})
       }
   },
   computed: {
