@@ -9,7 +9,7 @@
     </div>
     <div v-else>
       <h2>Select Files</h2>
-      Please select below all files you want to submit to Zenodo.
+      Please select below all files you want to submit to Zenodo. These files come from your Jupiter Store.
       <treeselect
         class="mt-4"
         :value="files"

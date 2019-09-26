@@ -29,7 +29,7 @@
           <b-form-textarea
             id="textarea"
             v-model="description"
-            placeholder="Enter a description..."
+            placeholder="How would you describe your data?"
             rows="3"
             :state="states.description"
             no-resize
@@ -42,6 +42,7 @@
         <b-form-radio-group v-model="isAuthor">
           <b-form-radio :value="true">Yes or in collaboration with others</b-form-radio>
           <b-form-radio :value="false">No, I'm submitting on behalf of a third person</b-form-radio>
+          <div v-if="isAuthor === false" class="mt-1 font-italic font-weight-lighter">You can add authors later on Zenodo.</div>
         </b-form-radio-group>
       </b-form-group>
       <b-form-group v-if="isAuthor" class="ml-5 mb-4" label="Please check your name for correct spelling:">
@@ -61,7 +62,7 @@
       </b-form-group>
     </div>
     <div class="mb-3">
-      <b-btn :to="'browser'" class="float-left">Back</b-btn><b-btn @click="goToLogin" class="float-right mb-4"  :disable="(description != null && description.length > 0) || (title != null && title.length > 0) || submissionType == null">Next</b-btn>
+      <b-btn :to="{ name: 'browser'}" class="float-left">Back</b-btn><b-btn @click="goToLogin" class="float-right mb-4"  :disable="(description != null && description.length > 0) || (title != null && title.length > 0) || submissionType == null">Next</b-btn>
     </div>
   </div>
 </template>

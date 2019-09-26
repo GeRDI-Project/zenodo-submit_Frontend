@@ -1,14 +1,52 @@
 <template>
   <div>
-    <Stepper :step="2"/>
+    <Stepper :step="3"/>
     <h1>Only one more step</h1>
-    You have been logged in into Zenodo. Just quickly check if the list below contains all files you want to submit. If so, click on Submit to start the process.
+    You have been logged in into Zenodo. Just quickly check if the info below contains everything you want to submit. If so, click on Submit to start the process.
+    <h4 class="mt-4">Files to submit</h4>
     <b-list-group class="mt-4">
       <b-list-group-item v-for="file in files" :key="file">{{file}}</b-list-group-item>
     </b-list-group>
+    <h4 class="mt-4">Metadata</h4>
+    <b-row>
+      <b-col md="auto">
+        <div>
+          Title:
+        </div>
+        <div>
+          Description:
+        </div>
+        <div>
+          Submission Type:
+        </div>
+        <div v-if="isAuthor">
+          Author:
+        </div>
+        <div v-if="isFirstVersion != null">
+          First Time Upload:
+        </div>
+      </b-col>
+      <b-col>
+        <div>
+          {{ title }}
+        </div>
+        <div>
+          {{ description }}
+        </div>
+        <div>
+          {{ submissionType }}
+        </div>
+        <div v-if="isAuthor">
+          {{ name }}
+        </div>
+        <div v-if="isFirstVersion != null">
+          {{ isFirstVersion ? 'yes' : 'no' }}
+        </div>
+      </b-col>
+    </b-row>
     <div class="mt-4">
       <!-- <b-btn class="float-left">Back</b-btn> -->
-      <b-btn class="float-right" @click="startSubmit">Submit</b-btn>
+      <b-btn class="float-right" @click="startSubmit">Copy to Zenodo</b-btn>
     </div>
   </div>
 </template>
@@ -41,6 +79,31 @@ export default {
   computed: {
     files() {
       return this.$store.getters['zenodo/getFiles']
+    },
+    submissionType() {
+      switch (this.$store.getters['zenodo/getSubmissionType']) {
+        case 'dataset':
+          return 'Dataset'
+        case 'software':
+          return 'Software'
+        default:
+          return 'Other'
+      }
+    },
+    name() {
+      return this.$store.getters['zenodo/getName']
+    },
+    title() {
+      return this.$store.getters['zenodo/getTitle']
+    },
+    description() {
+      return this.$store.getters['zenodo/getDescription']
+    },
+    isFirstVersion() {
+      return this.$store.getters['zenodo/isFirstVersion']
+    },
+    isAuthor() {
+        return this.$store.getters['zenodo/isAuthor']
     }
   },
   methods: {

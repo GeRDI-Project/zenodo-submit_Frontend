@@ -7,7 +7,7 @@
       <download-item v-for="data in progressData" :title="data.fileName" :progress="data.progress" :state="data.status" :key="data.fileName"/>
     </b-list-group>
     <div v-if="isFinished" class="mt-4 mb-4">
-      Submit is finished. In order to finally publish the submission, go to <b-link :href="zenodoLink">Zenodo</b-link>.
+      Submission is finished. You will be forwarded to <b-link :href="zenodoLink">Zenodo</b-link> in {{ remainingTime }} seconds.
     </div>
   </div>
 </template>
@@ -27,6 +27,7 @@ export default {
   },
   data () {
     return {
+      remainingTime: 5,
       progressData: [],
       unwatch: null,
       retries: 0
@@ -48,6 +49,14 @@ export default {
     }
   },
   methods: {
+    doCountdown() {
+      this.remainingTime--
+      if (this.remainingTime <= 0) {
+        window.location.href = this.zenodoLink
+      } else {
+        setTimeout(this.doCountdown, 1000)
+      }
+    },
     init() {
       if (this.$gerdi.aai.isAuthenticated()) {
         this.load()
@@ -69,7 +78,11 @@ export default {
       .then(function(response) {
         self.retries = 0
         self.progressData = response.data.progressEntries
-        if (!self.isFinished) window.setTimeout(self.load, 500)
+        if (!self.isFinished) {
+          window.setTimeout(self.load, 500)
+        } else {
+          window.setTimeout(self.doCountdown, 1000)
+        }
       })
       .catch(function(response) {
         if (self.retries < 3) {
