@@ -1,4 +1,5 @@
 module.exports = {
+  publicPath: '/submit/zenodo/',
   devServer: {
     proxy: {
       "/api": {

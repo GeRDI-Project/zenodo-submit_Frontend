@@ -9,8 +9,9 @@
 </template>
 
 <style lang="scss">
+/* @import './styles/gerdi.scss'; */
 @import '~shared-ui/scss/gerdi.scss';
-@import '../node_modules/bootstrap/scss/bootstrap.scss';
+@import '~bootstrap/scss/bootstrap';
 
 #app {
   -webkit-font-smoothing: antialiased;
